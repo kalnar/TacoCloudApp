@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: TacoCloudApp
+  datasource:
+    generate-unique-name: false
+    name: tacocloud
+  jpa:
+    hibernate:
+      ddl-auto: create
+    defer-datasource-initialization: true
+  thymeleaf:
+    cache: false
