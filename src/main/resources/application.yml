@@ -3,13 +3,12 @@ spring:
     name: TacoCloudApp
   thymeleaf:
     cache: false
-  data:
-    cassandra:
-      keyspace-name: tacocloud
-      contact-points: localhost # Or the actual IP addresses of your Cassandra nodes, e.g., "192.168.1.10,192.168.1.11"
-      port: 9042 # This is the default port, but good to include for clarity
-      local-datacenter: datacenter1
-      schema-action: create-if-not-exists
+  cassandra:
+    keyspace-name: tacocloud
+    contact-points: localhost # Or the actual IP addresses of your Cassandra nodes, e.g., "192.168.1.10,192.168.1.11"
+    port: 9042 # This is the default port, but good to include for clarity
+    local-datacenter: datacenter1
+    schema-action: create-if-not-exists
 logging:
   level:
     com.datastax.oss.driver: DEBUG
