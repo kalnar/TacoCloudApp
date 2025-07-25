@@ -1,21 +1,19 @@
 package eu.kalnarapps.TacoCloudApp.domain.tacos;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
-import org.springframework.data.relational.core.mapping.Table;
 
 
 @Data
-@Entity
-public class Taco {
+public class Taco implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    private static final long serialVersionUID = 1L;
+
     private Long id;
 
     @NotNull
@@ -26,7 +24,6 @@ public class Taco {
 
     @NotNull
     @Size(min = 1, message = "You must choose at least 1 ingredient")
-    @ManyToMany()
     private List<Ingredient> ingredients;
 
     public void addIngredient(Ingredient ingredient) {
