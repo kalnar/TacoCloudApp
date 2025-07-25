@@ -18,12 +18,21 @@ public class Ingredient {
     @PrimaryKey
     private String id;
 
-    private final String name;
+    private String name;
 
-    private final Type type;
+    private Type type;
 
     public enum Type {
-        WRAP, PROTEIN, VEGGIES, CHEESE, SAUCE
+        WRAP, PROTEIN, VEGGIES, CHEESE, SAUCE;
+
+        public static Type from(String typeString) {
+            for (Type type : Type.values()) {
+                if (type.name().equals(typeString)) {
+                    return type;
+                }
+            }
+            throw new IllegalArgumentException("Unknown Type name: " + typeString);
+        }
     }
 
 }
