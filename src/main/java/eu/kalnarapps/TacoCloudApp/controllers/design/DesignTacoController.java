@@ -7,6 +7,8 @@ import eu.kalnarapps.TacoCloudApp.domain.tacos.TacoOrder;
 import eu.kalnarapps.TacoCloudApp.repositories.IngredientRepository;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -53,7 +55,12 @@ public class DesignTacoController {
     }
 
     @GetMapping
-    public String showDesignForm() {
+    public String showDesignForm(@AuthenticationPrincipal OAuth2User oauth2User) {
+        if (oauth2User != null) {
+            log.info("Authenticated User: " + oauth2User.getName());
+            log.info("Authorities: " + oauth2User.getAuthorities());
+            log.info("Attributes: " + oauth2User.getAttributes());
+        }
         return "design";
     }
 

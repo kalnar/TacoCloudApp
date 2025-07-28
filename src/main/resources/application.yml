@@ -17,3 +17,11 @@ spring:
     defer-datasource-initialization: true
   thymeleaf:
     cache: false
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 842664503797-rfbau6o4nfuf50vjvqoc07r5epqtkkha.apps.googleusercontent.com
+            client-secret: ${SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GOOGLE_CLIENT_SECRET} # Optional placeholder
+            scope: openid,profile,email
