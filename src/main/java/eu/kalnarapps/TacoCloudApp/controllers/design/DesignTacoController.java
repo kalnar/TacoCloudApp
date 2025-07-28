@@ -63,7 +63,7 @@ public class DesignTacoController {
             Errors errors,
             @ModelAttribute TacoOrder tacoOrder
     ) {
-
+        log.info("processTaco called");
         if (errors.hasErrors()) {
             return "design";
         }

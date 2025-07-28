@@ -4,9 +4,16 @@ spring:
   datasource:
     generate-unique-name: false
     name: tacocloud
+    url: jdbc:h2:file:./data/tacocloud.db
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     defer-datasource-initialization: true
   thymeleaf:
     cache: false
