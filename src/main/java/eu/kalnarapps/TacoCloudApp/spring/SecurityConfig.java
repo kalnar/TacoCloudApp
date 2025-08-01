@@ -1,5 +1,6 @@
 package eu.kalnarapps.TacoCloudApp.spring;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +14,9 @@ import org.springframework.security.web.access.expression.WebExpressionAuthoriza
 @Configuration
 public class SecurityConfig {
 
+    @Value("${TACO_CLOUD_APP_ADMIN_IP}")
+    private String adminIp;
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -20,6 +24,7 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        System.out.println("Admin IP: " + adminIp);
         return http
                 .csrf(csrf -> csrf
                         .ignoringRequestMatchers(
@@ -28,6 +33,9 @@ public class SecurityConfig {
                 )
                 .authorizeHttpRequests(
                         (requests) -> requests
+                                .requestMatchers("/admin", "/admin/register").access(
+                                        new WebExpressionAuthorizationManager("hasRole('ADMIN') or hasIpAddress('" + adminIp + "')")
+                                )
                                 .requestMatchers("/design", "/orders", "/orders/**").access(
                                         new WebExpressionAuthorizationManager("hasRole('USER') or hasAuthority('OIDC_USER')")
                                 )

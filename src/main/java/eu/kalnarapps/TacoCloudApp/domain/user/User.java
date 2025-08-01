@@ -36,10 +36,20 @@ public class User implements UserDetails {
   private final String state;
   private final String zip;
   private final String phoneNumber;
+  private final boolean isAdmin;
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+    List<? extends GrantedAuthority> authorities;
+    if (isAdmin) {
+      authorities = List.of(
+              new SimpleGrantedAuthority("ROLE_USER"),
+              new SimpleGrantedAuthority("ROLE_ADMIN")
+      );
+    } else {
+      authorities = List.of(new SimpleGrantedAuthority("ROLE_USER"));
+    }
+    return authorities;
   }
 
   @Override

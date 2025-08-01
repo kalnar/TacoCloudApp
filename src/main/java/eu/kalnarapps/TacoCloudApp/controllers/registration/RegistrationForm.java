@@ -16,7 +16,10 @@ public class RegistrationForm {
     private String zip;
     private String phone;
 
-    public User toUser(PasswordEncoder passwordEncoder) {
+    public User toUser(
+            PasswordEncoder passwordEncoder,
+            boolean isAdmin
+    ) {
         return new User(
                 username,
                 passwordEncoder.encode(password),
@@ -25,7 +28,8 @@ public class RegistrationForm {
                 city,
                 state,
                 zip,
-                phone
+                phone,
+                isAdmin
         );
     }
 }

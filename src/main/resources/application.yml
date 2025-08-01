@@ -1,4 +1,10 @@
 spring:
+  main:
+    allow-circular-references: true
+  flyway:
+    depends-on: entityManagerFactory
+    enabled: true
+    baseline-on-migrate: true # Good for existing databases
   application:
     name: TacoCloudApp
   datasource:
@@ -14,7 +20,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-    defer-datasource-initialization: true
+    defer-datasource-initialization: false
   thymeleaf:
     cache: false
   security:

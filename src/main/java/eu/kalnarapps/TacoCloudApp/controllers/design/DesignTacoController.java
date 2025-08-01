@@ -56,11 +56,6 @@ public class DesignTacoController {
 
     @GetMapping
     public String showDesignForm(@AuthenticationPrincipal OAuth2User oauth2User) {
-        if (oauth2User != null) {
-            log.info("Authenticated User: " + oauth2User.getName());
-            log.info("Authorities: " + oauth2User.getAuthorities());
-            log.info("Attributes: " + oauth2User.getAttributes());
-        }
         return "design";
     }
 
@@ -70,7 +65,6 @@ public class DesignTacoController {
             Errors errors,
             @ModelAttribute TacoOrder tacoOrder
     ) {
-        log.info("processTaco called");
         if (errors.hasErrors()) {
             return "design";
         }
@@ -80,13 +74,4 @@ public class DesignTacoController {
 
         return "redirect:/orders/current";
     }
-
-    private Iterable<Ingredient> filterByType(
-            List<Ingredient> ingredients, Type type) {
-        return ingredients
-                .stream()
-                .filter(x -> x.getType().equals(type))
-                .collect(Collectors.toList());
-    }
-
 }
