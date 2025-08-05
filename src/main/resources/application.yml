@@ -40,3 +40,6 @@ server:
     key-alias: "localhost"
     key-store-password: "${TACO_CLOUD_APP_KEYSTORE_PASSWORD}"
     key-password: "${TACO_CLOUD_APP_KEYSTORE_PASSWORD}"
+logging:
+  file:
+    name: /tmp/logs/TacoCloud.log
