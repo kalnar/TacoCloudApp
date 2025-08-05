@@ -1,7 +1,6 @@
 package eu.kalnarapps.TacoCloudApp.controllers.registration;
 
 import eu.kalnarapps.TacoCloudApp.repositories.UserRepository;
-import eu.kalnarapps.TacoCloudApp.spring.IpUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -23,8 +22,6 @@ public class RegistrationController {
 
   @GetMapping
   public String registerForm(HttpServletRequest request) {
-    String clientIp = IpUtils.getClientIpAddress(request);
-    System.out.println("Client IP address: " + clientIp);
     return "registration";
   }
 

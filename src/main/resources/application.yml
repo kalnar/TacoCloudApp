@@ -31,3 +31,12 @@ spring:
             client-id: 842664503797-rfbau6o4nfuf50vjvqoc07r5epqtkkha.apps.googleusercontent.com
             client-secret: ${SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GOOGLE_CLIENT_SECRET} # Optional placeholder
             scope: openid,profile,email
+server:
+  port: 8443
+  ssl:
+    enabled: true
+    key-store-type: PKCS12
+    key-store: file:/Users/robertkalna/dev/java/spring/learning/taco_cloud_app_resources/keystores/taco_cloud_keystores.p12
+    key-alias: "localhost"
+    key-store-password: "${TACO_CLOUD_APP_KEYSTORE_PASSWORD}"
+    key-password: "${TACO_CLOUD_APP_KEYSTORE_PASSWORD}"
