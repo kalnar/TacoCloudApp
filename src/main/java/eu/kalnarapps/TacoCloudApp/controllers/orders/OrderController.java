@@ -1,18 +1,19 @@
 package eu.kalnarapps.TacoCloudApp.controllers.orders;
 
-import eu.kalnarapps.TacoCloudApp.domain.tacos.Taco;
 import eu.kalnarapps.TacoCloudApp.domain.tacos.TacoOrder;
 import eu.kalnarapps.TacoCloudApp.domain.user.User;
 import eu.kalnarapps.TacoCloudApp.repositories.OrderRepository;
+import eu.kalnarapps.TacoCloudApp.spring.OrderProps;
 import jakarta.validation.Valid;
-import org.springframework.security.core.Authentication;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
-
-import lombok.extern.slf4j.Slf4j;
 
 
 @Slf4j
@@ -21,10 +22,12 @@ import lombok.extern.slf4j.Slf4j;
 @SessionAttributes("tacoOrder")
 public class OrderController {
 
-    private OrderRepository orderRepository;
+    private final OrderRepository orderRepository;
+    private final OrderProps props;
 
-    public OrderController(OrderRepository orderRepository) {
+    public OrderController(OrderRepository orderRepository, OrderProps props) {
         this.orderRepository = orderRepository;
+        this.props = props;
     }
 
     @GetMapping("/current")
@@ -32,6 +35,23 @@ public class OrderController {
         return "orderForm";
     }
 
+
+
+    @GetMapping
+    public String ordersForUser(
+            @AuthenticationPrincipal User user,
+            Model model,
+            @RequestParam(defaultValue = "0") int page
+    ) {
+
+        Pageable pageable = PageRequest.of(page, props.getPageSize());
+        model.addAttribute(
+                "orders",
+                orderRepository.findByUserOrderByPlacedAtDesc(user, pageable)
+        );
+
+        return "orderList";
+    }
 
     @PostMapping
     public String processOrder(

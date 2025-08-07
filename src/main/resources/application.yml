@@ -43,3 +43,6 @@ server:
 logging:
   file:
     name: /tmp/logs/TacoCloud.log
+taco:
+  orders:
+    pageSize: 10

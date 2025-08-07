@@ -1,0 +1,9 @@
+{
+  "properties": [
+    {
+      "name": "taco.orders.page-size",
+      "type": "java.lang.Integer",
+      "description": "Page size indicating how many orders do we show per page on orders page."
+    }
+  ]
+}
