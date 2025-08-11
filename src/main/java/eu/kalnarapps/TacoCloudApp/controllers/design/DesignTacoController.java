@@ -4,6 +4,7 @@ import eu.kalnarapps.TacoCloudApp.domain.tacos.Ingredient;
 import eu.kalnarapps.TacoCloudApp.domain.tacos.Ingredient.Type;
 import eu.kalnarapps.TacoCloudApp.domain.tacos.Taco;
 import eu.kalnarapps.TacoCloudApp.domain.tacos.TacoOrder;
+import eu.kalnarapps.TacoCloudApp.domain.user.User;
 import eu.kalnarapps.TacoCloudApp.repositories.IngredientRepository;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -55,7 +56,12 @@ public class DesignTacoController {
     }
 
     @GetMapping
-    public String showDesignForm(@AuthenticationPrincipal OAuth2User oauth2User) {
+    public String showDesignForm(
+            @AuthenticationPrincipal OAuth2User oauth2User,
+            @AuthenticationPrincipal User user
+            ) {
+        log.warn("User warning: " + user.getFullname());
+        log.debug("User debug: " + user.getFullname());
         return "design";
     }
 

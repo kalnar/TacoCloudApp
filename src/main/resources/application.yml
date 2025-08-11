@@ -43,6 +43,26 @@ server:
 logging:
   file:
     name: /tmp/logs/TacoCloud.log
+  level:
+    eu:
+      kalnarapps:
+        TacoCloudApp:
+          controllers: debug
 taco:
   orders:
     pageSize: 10
+
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+logging:
+  level:
+    eu:
+      kalnarapps:
+        TacoCloudApp:
+          controllers: warn
+server:
+  port: 443
